@@ -19,9 +19,13 @@ import UsersRouter from '../router/users.routes.js'
 import EmailsRouter from '../router/email.routes.js'
 import { validateToken } from '../utils/jwt.utils.js'
 import config from './environment.config.js'
+import swaggerConfig from './swagger.config.js'
 
 const registerRoutes = (app) => {
 	try {
+		// Documentación de la API
+		swaggerConfig(app)
+
 		// Rutas para views
 		app.use('/', ViewsRouter)
 
