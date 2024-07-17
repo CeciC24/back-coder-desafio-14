@@ -1,0 +1,43 @@
+<div class="container">
+	<h1>{{title}}</h1>
+
+    <div>
+        <h2>Agregar nuevo producto</h2>
+        <form id="addProductForm">
+            <input type="text" name="title" placeholder="Nombre" />
+            <input type="text" name="description" placeholder="Descripción" />
+            <input type="text" name="code" placeholder="Código" />
+            <input type="number" name="price" placeholder="Precio" />
+            <input type="number" name="stock" placeholder="Cantidad en stock" />
+            <input type="text" name="category" placeholder="Categoría" />
+            <input type="text" name="thumbnails" placeholder="Miniaturas" disabled="true" />
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Eliminar producto</h2>
+        <form id='deleteProductForm'>
+            <input type='text' name="productID" placeholder='ID del producto' />
+            <button type='submit'>Eliminar</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Todos los productos</h2>
+        <ul id='productListContainer'>
+            {{#each products}}
+                <div id={{id}}>
+                    <h3>{{title}}</h3>
+                    <p>{{id}}</p>
+                    <p>{{description}}</p>
+                    <p>{{price}}</p>
+                </div>
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+
+<script src='/socket.io/socket.io.js'></script>
+<script src='js/realTimeProducts.js'></script>

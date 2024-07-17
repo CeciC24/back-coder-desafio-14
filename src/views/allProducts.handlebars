@@ -1,0 +1,43 @@
+<script src='js/paginate.js'></script>
+
+<div class="container">
+	<div>
+		{{#if auth}}
+			<h2 class="text-center">¡Bienvenido/a {{user.first_name}}!</h2>
+			<div class="text-center">
+				<span class="mx-3">E-mail: {{user.email}}</span>
+				<span class="mx-3">Edad: {{user.age}}</span>
+				<span class="mx-3">Rol: {{user.role}}</span>
+			</div>
+		{{else}}
+			<h2 class="text-center">¡Bienvenido/a!</h2>
+		{{/if}}
+	</div>
+
+	<div>
+		<h2 class="mt-3">Todos los productos</h2>
+
+		<div class="d-flex flex-wrap">
+			{{#each products}}
+				<div class="card m-2" style="width: 32%;">
+					<div class="card-body">
+						<h5 class="card-title">{{title}}</h5>
+						<h6 class="card-subtitle mb-2 text-body-secondary">Precio: {{price}}</h6>
+						<p class="card-text">{{description}}</p>
+						<a href="/products/{{_id}}" class="btn btn-primary">Ver producto</a>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+
+	<nav class="my-3" aria-label='...'>
+		<ul id='pagination' class='pagination justify-content-center'>
+
+			<script>generatePagination({{totalPages}}, {{page}}, '/products')</script>
+
+		</ul>
+	</nav>
+</div>
+
+<script src='js/logout.js'></script>

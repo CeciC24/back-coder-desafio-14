@@ -1,0 +1,35 @@
+[
+	{
+		"id": "KShHySr4GcaLzEawUFCFA",
+		"status": true,
+		"title": "Producto de prueba 1",
+		"description": "Este es el producto de prueba 1",
+		"code": "abc125",
+		"price": 100,
+		"stock": 29,
+		"category": "Zapatos",
+		"thumbnails": []
+	},
+	{
+		"id": "5abwt7kVjl34aCDsOJELN",
+		"status": true,
+		"title": "Producto de prueba 2",
+		"description": "Este es el producto de prueba 2",
+		"code": "abc123",
+		"price": 800,
+		"stock": 28,
+		"category": "Zapatos",
+		"thumbnails": []
+	},
+	{
+		"id": "bkEEUSJVdg-gF_B9ejLUg",
+		"status": true,
+		"title": "Producto de prueba 3",
+		"description": "Este es el producto de prueba 3",
+		"code": "abc124",
+		"price": 300,
+		"stock": 24,
+		"category": "Zapatos",
+		"thumbnails": []
+	}
+]

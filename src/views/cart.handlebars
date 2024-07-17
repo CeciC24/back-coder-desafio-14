@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>Carrito</h2>
+    <ul>
+        {{#each products}}
+            <li>{{product.title}} - Cantidad: {{quantity}} - Precio: {{product.price}}</li>
+        {{/each}}
+    </ul>
+
+    <p>Total: {{total}}</p>
+
+    <a href='/products'>Volver a todos los productos</a>
+</div>
+
+<script src='js/logout.js'></script>

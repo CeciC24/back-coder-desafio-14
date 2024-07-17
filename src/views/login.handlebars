@@ -1,0 +1,30 @@
+<div class='container'>
+	{{#if success}}
+		<div class='success'>
+			<p>La contraseña ha sido restaurada con éxito. Por favor, vuelva a iniciar sesión.</p>
+		</div>
+	{{/if}}
+	{{#if emailsend}}
+		<div class='email-send'>
+			<p>Se ha enviado a su email el link de restauración de contraseña.</p>
+		</div>
+	{{/if}}
+
+	<h2>Login</h2>
+	<form id='loginForm'>
+		<label>Email</label>
+		<input name='email' />
+		<br />
+		<label>Contraseña</label>
+		<input type='password' name='password' />
+		<input type='submit' />
+	</form>
+	<div>
+		<hr />
+		<a href='/api/sessions/github'><button>Inicia sesión con Github</button></a>
+	</div>
+	<p>¿No estás registrado? <a href='/register'>Regístrate aquí</a></p>
+	<p><a href='/forgot-password'>¿Olvidó su contraseña?</a></p>
+</>
+
+<script src='js/login.js'></script>
