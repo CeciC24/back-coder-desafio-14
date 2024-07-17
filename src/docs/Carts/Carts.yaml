@@ -33,12 +33,12 @@ paths:
       tags:
         - Carts
       parameters:
-      - name: cid
-        in: path
-        required: true
-        schema:
-          type: string
-        description: ID del carrito
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del carrito
       responses:
         '200':
           description: Carrito obtenido correctamente
@@ -221,7 +221,6 @@ components:
       example:
         _id: ObjectId('663e81663b4483c76a98b393')
         products: [{ product: '663e81663b4483c76a98b393', quantity: 2 }]
-
 
   requestBodies:
     replaceCart:
