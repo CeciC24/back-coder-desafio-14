@@ -37,23 +37,25 @@ export default class CartManager {
 		}
 	}
 
-	async getById(id) {
-		try {
-			Validate.id(cid, 'carrito')
-			await Validate.existID(cid, CartMngr, 'carrito')
-			return await this.repository.findById(id)
-		} catch (error) {
+	async getById(cid) {
+		Validate.id(cid, 'carrito')
+
+		const cart = await this.repository.findById(cid)
+		if (!cart) {
 			CustomError.createError({
 				name: 'Error al obtener carrito',
-				message: error.message,
-				code: ErrorTypes.ERROR_INTERNAL_ERROR,
+				message: 'Carrito no encontrado',
+				code: ErrorTypes.ERROR_NOT_FOUND,
+				cause: `Carrito ID: ${cid} no encontrado`,
 			})
 		}
+
+		return cart
 	}
 
 	async addProductToCart(cid, pid) {
 		Validate.id(cid, 'carrito')
-		await Validate.existID(cid, CartMngr, 'carrito')
+		await Validate.existID(cid, this, 'carrito')
 		Validate.id(pid, 'producto')
 		await Validate.existID(pid, ProductMngr, 'producto')
 
@@ -91,7 +93,7 @@ export default class CartManager {
 
 	async deleteProductFromCart(cid, pid) {
 		Validate.id(cid, 'carrito')
-		await Validate.existID(cid, CartMngr, 'carrito')
+		await Validate.existID(cid, this, 'carrito')
 		Validate.id(pid, 'producto')
 		await Validate.existID(pid, ProductMngr, 'producto')
 		
@@ -128,7 +130,7 @@ export default class CartManager {
 
 	async update(cid, newCartProducts) {
 		Validate.id(cid, 'carrito')
-		await Validate.existID(cid, CartMngr, 'carrito')
+		await Validate.existID(cid, this, 'carrito')
 
 		try {
 			const cart = await this.getById(cid)
@@ -148,7 +150,7 @@ export default class CartManager {
 
 	async updateProductInCart(cid, pid, newQuantity) {
 		Validate.id(cid, 'carrito')
-		await Validate.existID(cid, CartMngr, 'carrito')
+		await Validate.existID(cid, this, 'carrito')
 		Validate.id(pid, 'producto')
 		await Validate.existID(pid, ProductMngr, 'producto')
 
@@ -189,12 +191,12 @@ export default class CartManager {
 		return await cart.save()
 	}
 
-	async empty(id) {
+	async empty(cid) {
 		Validate.id(cid, 'carrito')
-		await Validate.existID(cid, CartMngr, 'carrito')
+		await Validate.existID(cid, this, 'carrito')
 
 		try {
-			let emptyCart = await this.repository.updateById(id, { products: [] })
+			let emptyCart = await this.repository.updateById(cid, { products: [] })
 			return await emptyCart.save()
 		} catch (error) {
 			CustomError.createError({
@@ -205,12 +207,12 @@ export default class CartManager {
 		}
 	}
 
-	async purchaseCart(id, user) {
+	async purchaseCart(cid, user) {
 		Validate.id(cid, 'carrito')
-		await Validate.existID(cid, CartMngr, 'carrito')
+		await Validate.existID(cid, this, 'carrito')
 		
 		try {
-			let cart = await this.getById(id)
+			let cart = await this.getById(cid)
 			let products = cart.products
 
 			let amountPurchased = 0
@@ -227,7 +229,7 @@ export default class CartManager {
 
 			TicketMngr.create({ amount: amountPurchased, purchaser: user.email })
 
-			await this.update(id, productsNotPurchased)
+			await this.update(cid, productsNotPurchased)
 
 			if (productsNotPurchased.length > 0) {
 				return (
@@ -236,7 +238,7 @@ export default class CartManager {
 				)
 			}
 
-			return await this.getById(id)
+			return await this.getById(cid)
 		} catch (error) {
 			CustomError.createError({
 				name: 'Error al realizar compra',

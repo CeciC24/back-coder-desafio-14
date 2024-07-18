@@ -26,6 +26,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '500':
+          description: Error del servidor
 
   /api/cart/{cid}:
     get:
@@ -46,6 +48,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '400':
+          description: ID de carrito inválido
+        '404':
+          description: Carrito no encontrado
+        '500':
+          description: Error del servidor
     put:
       summary: Reemplaza los productos de un carrito por los ingresados
       tags:
@@ -70,8 +78,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '400':
+          description: ID de carrito inválido
+        '404':
+          description: Carrito no encontrado
+        '500':
+          description: Error del servidor
     delete:
-      summary: Elimina un carrito
+      summary: Vacía un carrito
       tags:
         - Carts
       parameters:
@@ -83,15 +97,21 @@ paths:
           description: ID del carrito
       responses:
         '200':
-          description: Carrito eliminado con éxito
+          description: Carrito vaciado con éxito
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '400':
+          description: ID de carrito inválido
+        '404':
+          description: Carrito no encontrado
+        '500':
+          description: Error del servidor
 
   /api/cart/{cid}/product/{pid}:
     post:
-      summary: Agrega un producto al carrito
+      summary: Agrega un producto a un carrito
       tags:
         - Carts
       parameters:
@@ -114,6 +134,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '400':
+          description: ID de carrito/producto inválido
+        '404':
+          description: Carrito/Producto no encontrado
+        '500':
+          description: Error del servidor
     delete:
       summary: Elimina un producto del carrito
       tags:
@@ -138,6 +164,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '400':
+          description: ID de carrito/producto inválido
+        '404':
+          description: Carrito/Producto no encontrado
+        '500':
+          description: Error del servidor
     put:
       summary: Cambia la cantidad de un producto en el carrito
       tags:
@@ -168,6 +200,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cart'
+        '400':
+          description: ID de carrito/producto inválido
+        '404':
+          description: Carrito/Producto no encontrado
+        '500':
+          description: Error del servidor
 
   /api/cart/{cid}/purchase:
     get:
@@ -219,7 +257,7 @@ components:
               - quantity
           default: []
       example:
-        _id: ObjectId('663e81663b4483c76a98b393')
+        _id: '663e81663b4483c76a98b393'
         products: [{ product: '663e81663b4483c76a98b393', quantity: 2 }]
 
   requestBodies:
@@ -233,6 +271,8 @@ components:
             required:
               - product
               - quantity
+      example:
+        [{ product: '663e81663b4483c76a98b393', quantity: 24 }, { product: '663e81663b4483c76a98b394', quantity: 10 }]
     changeQuantity:
       content:
         application/json:
@@ -244,3 +284,5 @@ components:
                 minimum: 1
             required:
               - quantity
+      example:
+        quantity: 3
